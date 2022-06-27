@@ -10,6 +10,9 @@ import MyLrc 1.0
 Item {
 
     property alias backimg: backimg
+    property alias mylrc: mylrc
+    property alias lrclistModel: lrclistModel
+    property alias timer: timer
 
     FileDialog {
         id: fileOpen
@@ -18,7 +21,7 @@ Item {
         fileMode: FileDialog.OpenFiles
         nameFilters: [ "Song files (*.mp3)" ]
         onAccepted: {
-            console.log(fileOpen.selectedFiles)
+            //console.log(fileOpen.selectedFiles)
             myMediaPlayer.source=fileOpen.selectedFiles[0]
         }
     }
@@ -33,7 +36,7 @@ Item {
     ListView {
 
         id:lrcListView
-        anchors.top: aa.bottom
+        //anchors.top: aa.bottom
         anchors.horizontalCenter: parent.horizontalCenter
         //width: 180; height: 400
         width: parent.width
@@ -62,7 +65,7 @@ Item {
            TapHandler{
                onTapped: {
                     lrcListView.currentIndex=index;
-                   console.log(lrcListView.currentIndex)
+                   //console.log(lrcListView.currentIndex)
                }
 
            }
@@ -88,32 +91,32 @@ Item {
 //    }
 
 
-    Button{
+//    Button{
 
-        id:aa
-        Text{
-            text:mylrc.fileUrl
-        }
-        onClicked: {
+//        id:aa
+//        Text{
+//            text:mylrc.fileUrl
+//        }
+//        onClicked: {
 
-            mylrc.beginstr(songsearch.sc.lyrics);
-//            console.log(mylrc.fileUrl)
-//            console.log(mylrc.fileTi)
-//            console.log(mylrc.fileAr)
-//            console.log(mylrc.fileAl)
-//            console.log(mylrc.fileBy)
+//            mylrc.beginstr(songsearch.sc.lyrics);
+////            console.log(mylrc.fileUrl)
+////            console.log(mylrc.fileTi)
+////            console.log(mylrc.fileAr)
+////            console.log(mylrc.fileAl)
+////            console.log(mylrc.fileBy)
 
-            lrclistModel.clear();
-            for(var i=0;i<mylrc.str.length;i++){
-                lrclistModel.append({"lrc":mylrc.str[i]})
-            }
-            timer.start();
-            myMediaPlayer.palyMusic()
+//            lrclistModel.clear();
+//            for(var i=0;i<mylrc.str.length;i++){
+//                lrclistModel.append({"lrc":mylrc.str[i]})
+//            }
+//            timer.start();
+//            myMediaPlayer.palyMusic()
 
 
-            //console.log(myMediaPlayer.source)
-        }
-    }
+//            //console.log(myMediaPlayer.source)
+//        }
+//    }
 
 
 Timer{
@@ -123,13 +126,26 @@ Timer{
     onTriggered: {
 //        console.log( Qt.formatTime(new Date(0, 0, 0, 0, Math.floor(myMediaPlayer.position / 60000), Math.round((myMediaPlayer.position % 60000) / 1000)),qsTr("mm:ss")))
 
-
 //       console.log( mylrc.pisotionChange(Math.floor(myMediaPlayer.position / 60000), Math.round((myMediaPlayer.position % 60000) / 1000))  )
 ////console.log(Math.floor(myMediaPlayer.position / 60000)+":"+ Math.round((myMediaPlayer.position % 60000) / 1000))
 
 lrcListView.currentIndex=mylrc.pisotionChange(Math.floor(myMediaPlayer.position / 60000), Math.round((myMediaPlayer.position % 60000) / 1000))
 
     }
+}
+
+
+function beging()
+{
+    mylrc.beginstr(songsearch.sc.lyrics);
+
+
+    lrclistModel.clear();
+    for(var i=0;i<mylrc.str.length;i++){
+        lrclistModel.append({"lrc":mylrc.str[i]})
+    }
+    timer.start();
+    myMediaPlayer.playMusic()
 }
 
 

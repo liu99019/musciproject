@@ -10,11 +10,21 @@ Item{
         id:sc
         onSongNameChanged: {addSongItem()}
         onUrlChanged: {
+
+            //更新最近列表flag
+            recent.flag=1
+            recent.addsongflag=sc.singerName;
+
             myMediaPlayer.source=sc.url;
-            myMediaPlayer.play();
+            musiclrc.beging()
+
             stackLayout.currentIndex=0;
-            console.log(sc.image)
             musiclrc.backimg.source=sc.image;
+
+            buttonItem.songImg.source=sc.image;
+            buttonItem.songName.text=sc.songName[songListView.currentIndex];
+            buttonItem.songerName.text=sc.singerName[songListView.currentIndex];
+
         }
     }
 
@@ -24,12 +34,12 @@ Item{
             id:keyWord
             selectByMouse: true
             font.pointSize: 12
-            placeholderText:qsTr("刘德华")
+            placeholderText:qsTr("薛之谦")
             Layout.fillWidth: true
         }
          RoundButton{
 
-            icon.source: "qrc:/icon_emoji/sousuo.png"
+            //icon.source: "qrc:/icon_emoji/sousuo.png"
             onClicked: {
                 if(keyWord.text.length===0) {
                     keyWord.text=keyWord.placeholderText

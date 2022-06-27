@@ -15,6 +15,7 @@ qt_add_executable(applingTmusic
     mylrc.h
     searchsong.cpp
     searchsong.h
+    icon.qrc
 )
 
 qt_add_qml_module(applingTmusic

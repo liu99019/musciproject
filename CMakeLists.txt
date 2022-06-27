@@ -15,13 +15,14 @@ qt_add_executable(applingTmusic
     mylrc.h
     searchsong.cpp
     searchsong.h
+    icon.qrc
 )
 
 qt_add_qml_module(applingTmusic
     URI lingTmusic
     VERSION 1.0
     QML_FILES main.qml MusicLrc.qml MyMediaPlayer.qml
-    SongSearch.qml RecentSong.qml ButtonItem.qml
+    SongSearch.qml RecentSong.qml ButtonItem.qml  MiniLrcDialog.qml
 )
 
 

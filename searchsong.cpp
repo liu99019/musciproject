@@ -153,12 +153,6 @@ void SearchSong::parseJson_getAlbumID(QString json){
     {
         qDebug() << json_error.errorString();
     }
-    qDebug() <<m_songName;
-//    qDebug() <<m_albumName;
-//    qDebug() <<album_idStr;
-//    qDebug() <<m_singerName;
-//    qDebug() <<hashStr;
-//    qDebug() <<m_duration;
 
 }
 

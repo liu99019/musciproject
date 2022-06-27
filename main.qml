@@ -42,7 +42,6 @@ ApplicationWindow {
             width: 60
             anchors.top: parent.top
             anchors.right: parent.right
-            //icon.source: "file:///run/media/root/study/University22/icon_emoji/shanchu.png"
             icon.color: "white"
 
             onClicked: {
@@ -123,7 +122,14 @@ ApplicationWindow {
         id:myMediaPlayer
         signal sendsongChange();
         Component.onCompleted: {
-           myMediaPlayer.sendsongChange.connect(recent.onSendSongsignal);
+           //myMediaPlayer.sendsongChange.connect(recent.onSendSongsignal);
         }
+    }
+
+
+
+
+    MiniLrcDialog{
+        id:miniLre
     }
 }

@@ -2,6 +2,13 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Dialogs
 
+import QtQuick.Controls.Universal
+import QtQuick 2.9
+import QtQuick.Window 2.2
+import Qt5Compat.GraphicalEffects
+
+import QtQuick.Layouts
+//import QtGraphicalEffects
 
 Item {
 
@@ -23,7 +30,8 @@ Item {
             Image {
                 id:songImg
                 width: 80
-                source: "file:///root/QML/my_music/11111111111/music_3/images/22.webp"
+                height: 60
+                //source: "file:///root/QML/my_music/11111111111/music_3/images/22.webp"
                 fillMode: Image.PreserveAspectFit
             }
             Column{
@@ -70,13 +78,13 @@ Item {
             }
 
             RoundButton{
-                text:"shangyishou"
+                //text:"shangyishou"
                 width: 45
                 height: 45
-                //icon.name: "document-new"
+                icon.source:":/icon/biaoqian.png"
                 onPressed: {
-                    //pauseMusic()
-                    console.log("shouyishou")
+                    recent.recentListview.decrementCurrentIndex();
+                    recent.startplay()
                 }
             }
 
@@ -115,8 +123,8 @@ Item {
                 width: 45
                 height: 45
                 onPressed: {
-                   // stopMusic()
-                    console.log("xiaoyishou")
+                   recent.recentListview.incrementCurrentIndex();
+                   recent.startplay()
                 }
             }
 
@@ -124,7 +132,7 @@ Item {
             Text{
                 anchors.verticalCenter: parent.verticalCenter
                 id:text1
-                text:"00:00"
+                text:Qt.formatTime(new Date(0, 0, 0, 0, Math.floor(slider1.position*myMediaPlayer.duration / 60000), Math.round((slider1.position*myMediaPlayer.duration % 60000) / 1000)),qsTr("mm:ss"))
             }
 
             Slider{
@@ -135,13 +143,23 @@ Item {
                 value: 0
                 width: 200
 
-                onValueChanged: {
-
-                    text1.text=Qt.formatTime(new Date(0, 0, 0, 0, Math.floor(slider1.position*myMediaPlayer.duration / 60000), Math.round((slider1.position*myMediaPlayer.duration % 60000) / 1000)),qsTr("mm:ss"))
-
-
+                onPressedChanged: {
                     myMediaPlayer.position=value
+                    myMediaPlayer.play();
                         }
+
+                Timer {
+                    id: timer
+                    interval: 500
+                    running: true
+                    repeat: true
+                    onTriggered: {
+                        // 正在拖拽的时候不更新位置
+//                        if (!parent.pressed) {
+//                            //parent.value = myMediaPlayer.position
+//                        }
+                    }
+                }
             }
 
 
@@ -194,8 +212,12 @@ Item {
                 width: 45
                 height: 45
                 onPressed: {
-                   // stopMusic()
-                    console.log("xiaoyishou")
+                    gc.visible=true
+                    //miniLre.visible=true
+                    window.visible=false
+
+
+
                 }
             }
 
@@ -212,28 +234,59 @@ Item {
         fileMode: FileDialog.OpenFiles
         nameFilters: ["音乐文件 (*.mp3 *.wma *.flac *.ape)", "所有文件 (*)"]
         onAccepted: {
+
             setFile(fileOpen.currentFiles)
 
 
+            musiclrc.mylrc.bendi(String(fileOpen.currentFiles[0]))
+
+            musiclrc.beging();
+            //musiclrc.mylrc.beginurl();
 
         }
     }
+
+
 
     //文件的选择函数
     function setFile(){
 
-        recent.clearListModel();
+        //recent.clearListModel();
         for(var i=0;i<arguments[0].length;i++){
             //filesModel.append({"picSrc":String (arguments[0][i])})
             //recent.playlistModel.append({"picSrc":String (arguments[0][i])})
-
             myMediaPlayer.source=String(arguments[0][i])
             myMediaPlayer.play()
             console.log(myMediaPlayer.source)
+
+            //musiclrc.mylrc.bendi(String(fileOpen.currentFiles[0]))
             //console.log(myMediaPlayer.metaData.stringValue(MediaMetaData.Title))
         }
     }
 
+
+
+
+    Window{
+        id: gc
+        visible: false
+        width: 500
+        height: 100
+        title: qsTr("歌词")
+
+
+
+
+        Text{
+            id: mt
+            anchors.centerIn: parent
+            visible: true
+            color: "blue"
+            //text:"曾经年少爱追梦，一心只想往前飞。"
+            text:musiclrc.lrclistModel.get(musiclrc.lrcListView.currentIndex).lrc
+            font.pixelSize: 28
+         }
+    }
 
 
 

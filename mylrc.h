@@ -81,6 +81,7 @@ public:
     Q_INVOKABLE void beginstr(QString lrc);
     Q_INVOKABLE int pisotionChange(int m,int s);
 
+    Q_INVOKABLE void  bendi(QString  name);
 
 
 

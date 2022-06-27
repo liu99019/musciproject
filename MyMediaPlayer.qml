@@ -21,7 +21,7 @@ MediaPlayer{
     function playMusic()
     {
         myMediaPlayer.play();
-        audioUotput.volume=7
+        recent.timerStart();
     }
 
 
@@ -29,14 +29,12 @@ MediaPlayer{
     {
 
         myMediaPlayer.pause()
-        audioUotput.volume=7
     }
 
     function stopMusic()
     {
 
         myMediaPlayer.stop()
-        audioUotput.volume=7
     }
 
 
@@ -45,9 +43,6 @@ MediaPlayer{
     onSourceChanged: {
         myMediaPlayer.sendsongChange();
     }
-
-
-
 
 
     onPositionChanged: {

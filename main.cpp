@@ -1,32 +1,16 @@
-#include <QGuiApplication>
-#include <QQmlApplicationEngine>
-
-#include <QQmlContext>
-#include <QScreen>
-#include <QRect>
-#include "mylrc.h"
-#include"searchsong.h"
-
-#include <QGuiApplication>
-#include <QQmlApplicationEngine>
-
+#include <QApplication>
+#include <QAudioDecoder>
+#include <QAudioOutput>
+#include <QUrl>
+#include <QBuffer>
+#include "AudioPlayer.h"
+#include "EQWidget.h"
 
 int main(int argc, char *argv[])
 {
-    QGuiApplication app(argc, argv);
+    QApplication a(argc, argv);
+    EQWidget widget("file://root/run/media/root/study/tmp/Justin Timberlake-Five Hundred Miles.mp3");
+    widget.show();
 
-    QQmlApplicationEngine engine;
-
-    qmlRegisterType<MyLrc>("MyLrc",1,0,"MyLrc");
-    qmlRegisterType<SearchSong>("SearchSong",1,0,"SearchSong");
-
-    const QUrl url(u"qrc:/lingTmusic/main.qml"_qs);
-    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
-                     &app, [url](QObject *obj, const QUrl &objUrl) {
-        if (!obj && url == objUrl)
-            QCoreApplication::exit(-1);
-    }, Qt::QueuedConnection);
-    engine.load(url);
-
-    return app.exec();
+    return a.exec();
 }

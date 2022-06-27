@@ -30,5 +30,12 @@
         <file>icon/yinle2.png</file>
         <file>icon/yuyin.png</file>
         <file>icon/zanting.png</file>
+        <file>icon/danquxunhuan.png</file>
+        <file>icon/shengyin_shiti.png</file>
+        <file>icon/jingyin.png</file>
+        <file>icon/stop-circle.png</file>
+        <file>icon/suijibofang.png</file>
+        <file>icon/yunhang.png</file>
+        <file>icon/shunxubofang.png</file>
     </qresource>
 </RCC>

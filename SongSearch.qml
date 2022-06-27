@@ -10,36 +10,30 @@ Item{
         id:sc
         onSongNameChanged: {addSongItem()}
         onUrlChanged: {
-
             //更新最近列表flag
             recent.flag=1
             recent.addsongflag=sc.singerName;
-
-            myMediaPlayer.source=sc.url;
-            musiclrc.beging()
-
-            stackLayout.currentIndex=0;
-            musiclrc.backimg.source=sc.image;
-
-            buttonItem.songImg.source=sc.image;
-            buttonItem.songName.text=sc.songName[songListView.currentIndex];
-            buttonItem.songerName.text=sc.singerName[songListView.currentIndex];
-
+            startplay();
         }
+
     }
 
    ColumnLayout{
     Row {
+        Layout.leftMargin: 380
         TextField {
+            anchors.verticalCenter: parent.verticalCenter
             id:keyWord
+            width: 170
             selectByMouse: true
             font.pointSize: 12
             placeholderText:qsTr("薛之谦")
             Layout.fillWidth: true
         }
          RoundButton{
-
-            //icon.source: "qrc:/icon_emoji/sousuo.png"
+             icon.width: 28
+             icon.height: 28
+            icon.source: "qrc:/icon/sousuo.png"
             onClicked: {
                 if(keyWord.text.length===0) {
                     keyWord.text=keyWord.placeholderText
@@ -55,30 +49,40 @@ Item{
     RowLayout{
         id: row1
         Layout.fillWidth: true
-        Layout.leftMargin: 5
+        Layout.leftMargin: 20
+
         Text {
-            Layout.preferredWidth: 160
+            Layout.preferredWidth: 200
             Layout.rightMargin: 40
             text: qsTr("歌曲名")
-            font.pixelSize: 15
+            font.pixelSize: 20
         }
+
         Text {
-            Layout.preferredWidth: 120
+            Layout.preferredWidth: 200
+            Layout.rightMargin: 40
+            text: qsTr("歌手")
+            font.pixelSize: 20
+        }
+
+        Text {
+            Layout.preferredWidth: 200
             Layout.rightMargin: 40
             text: qsTr("专辑")
-            font.pixelSize: 15
+            font.pixelSize: 20
         }
+
         Text {
-            Layout.preferredWidth: 80
+            Layout.preferredWidth: 200
             text: qsTr("时长")
-            font.pixelSize: 15
+            font.pixelSize: 20
         }
     }
 
     ListView{
         id: songListView
-        Layout.preferredWidth:640
-        Layout.preferredHeight: 380
+        Layout.preferredWidth:980
+        Layout.preferredHeight: 580
         clip: true
         spacing: 5
         currentIndex: -1
@@ -90,6 +94,9 @@ Item{
             policy: ScrollBar.AlwaysOn
         }
 
+        onCurrentIndexChanged: {
+            sc.getSongUrl(currentIndex);
+        }
     }
 
 }
@@ -107,28 +114,40 @@ Item{
         color:ListView.isCurrentItem ? "lightgrey" : "white"
         RowLayout{
             id:sarchLayout
+            Layout.fillWidth: true
             Text {
                 text:song
-                Layout.preferredWidth: 160
+                Layout.leftMargin: 20
+                Layout.preferredWidth: 200
                 Layout.rightMargin: 40
                 elide: Text.ElideRight
+                font.pixelSize:18
+            }
+            Text {
+                text:singername
+                Layout.preferredWidth: 200
+                Layout.rightMargin: 40
+                elide: Text.ElideRight
+                font.pixelSize:18
             }
             Text {
                 text: album
-                Layout.preferredWidth: 120
+                Layout.preferredWidth: 200
                 Layout.rightMargin: 40
                 elide: Text.ElideRight
+                font.pixelSize:18
             }
             Text {
                 text: duration
-                Layout.preferredWidth: 80
+                Layout.preferredWidth: 200
                 Layout.rightMargin: 20
+                font.pixelSize:18
             }
         }
         TapHandler{
             onDoubleTapped:{
                 songListView.currentIndex=index;
-                sc.getSongUrl(index);
+                myMediaPlayer.currentNextflag=0;
              }
         }
     }
@@ -141,11 +160,23 @@ Item{
              m=(sc.duration[i]-sc.duration[i]%60)/60
              s=sc.duration[i]-m*60
              if(s>=0&s<10) {
-                  songListModel.append({"song":sc.singerName[i]+"-"+sc.songName[i],"album":sc.albumName[i],"duration":m+":0"+s})
+                  songListModel.append({"song":sc.songName[i],"singername":sc.singerName[i],"album":sc.albumName[i],"duration":m+":0"+s})
              } else {
-                  songListModel.append({"song":sc.singerName[i]+"-"+sc.songName[i],"album":sc.albumName[i],"duration":m+":"+s})
+                  songListModel.append({"song":sc.songName[i],"singername":sc.singerName[i],"album":sc.albumName[i],"duration":m+":"+s})
              }
          }
      }
+
+    function startplay(){
+        myMediaPlayer.source=sc.url;
+        musiclrc.beging()
+
+        stackLayout.currentIndex=0;
+        musiclrc.backimg.source=sc.image;
+
+        buttonItem.songImg.source=sc.image;
+        buttonItem.songName.text=sc.songName[songListView.currentIndex];
+        buttonItem.songerName.text=sc.singerName[songListView.currentIndex];
+    }
 
 }

@@ -13,7 +13,11 @@ using namespace std;
 void MyLrc::beginurl()
 {
 
-    change();
+    m_lyrics.clear();
+    m_lyrics_str.clear();
+
+    m_str.clear();
+    //change();
     DivideLyrics();
     DisposeLyric();
     changeTi();
@@ -58,6 +62,39 @@ int MyLrc::pisotionChange(int m, int s)
     }
     return m_lyrics.size() ;
 
+
+}
+
+void MyLrc::bendi(QString name)
+{
+        cout<<"2";
+        qDebug()<<name;
+
+        string newName1;
+        string newName2="ddgg;djfkfjkfjdfhgokdjflkdjf;ljkjfkldjkljslkjfld;l";
+        newName1=name.toStdString();
+        cout<<newName1<<endl;
+
+
+
+        cout<<newName1.length()<<endl;
+        for(int i=7;i<newName1.length()-3;i++)
+        {
+            newName2[i-7]=newName1[i];
+        }
+
+        newName2[newName1.length()-10]='l';
+        newName2[newName1.length()-9]='r';
+        newName2[newName1.length()-8]='c';
+        newName2[newName1.length()-7]='\0';
+        //newName2.size()=newName1.length()-6;
+        cout<<newName2<<endl;
+        string str(newName2,0,newName1.length()-7);
+        cout<<str;
+        m_url=str;
+
+
+        beginurl();
 
 }
 

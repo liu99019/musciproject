@@ -120,9 +120,5 @@ ApplicationWindow {
 
     MyMediaPlayer{
         id:myMediaPlayer
-        signal sendsongChange();
-        Component.onCompleted: {
-           //myMediaPlayer.sendsongChange.connect(recent.onSendSongsignal);
-        }
     }
 }

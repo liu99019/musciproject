@@ -11,6 +11,9 @@ Item {
     property alias songImg:songImg
     property alias songName:songName
     property alias songerName:songerName
+    property alias order: order
+    property alias circulate: circulate
+    property alias random: random
 
     anchors.fill: parent
     Rectangle{
@@ -32,62 +35,57 @@ Item {
                 Text {
                     id:songName
                     text: qsTr("songName")
+                    width: 120
                 }
                 Text {
                     id:songerName
                     text: qsTr("songerName")
+                    width: 120
                 }
             }
 
-
-
-            Rectangle{
-                //visible: flase
-                width: 60
-                height: parent.height
-                color: "white"
-            }
-
-
             RoundButton{
-                text:"open"
-                width: 45
-                height: 45
+                icon.width: 32
+                icon.height: 32
+                icon.source: "qrc:/icon/wenjian.png"
                 onPressed: {
-                    fileOpen.open()
+                    recent.fileOpen.open()
                     console.log("open")
                 }
             }
 
             RoundButton{
-                text:"stop"
-                width: 45
-                height: 45
-                //icon.source: "file:///root/QML/my_music/11111111111/mymuisc/icon_emoji/tingge.png"
+                icon.height: 32
+                icon.width: 32
+                icon.source: "qrc:/icon/stop-circle.png"
                 onPressed: {
                     myMediaPlayer.stopMusic()
-
                 }
             }
 
             RoundButton{
-                //text:"shangyishou"
-                width: 45
-                height: 45
-                icon.source:":/icon/biaoqian.png"
+
+                icon.height: 32
+                icon.width: 32
+                icon.source: "qrc:/icon/shangyishou.png"
                 onPressed: {
-                    recent.recentListview.decrementCurrentIndex();
-                    recent.startplay()
+                    if(myMediaPlayer.currentNextflag===0){
+                    songsearch.songListView.decrementCurrentIndex();
+                    songsearch.startplay()
+                    }else if(myMediaPlayer.currentNextflag===1){
+                        recent.recentListview.decrementCurrentIndex();
+                        recent.startplay()
+                    }
                 }
             }
 
             RoundButton{
                 id:pause
-                text:"pause"
-                width: 45
-                height: 45
+                icon.height: 32
+                icon.width: 32
                 visible:false
-
+                icon.source: "qrc:/icon/yunhang.png"
+                icon.color: "green"
                 onPressed: {
                     myMediaPlayer.playMusic()
                     paly.visible=true
@@ -97,9 +95,9 @@ Item {
             }
             RoundButton{
                 id:paly
-                text:"paly"
-                width: 45
-                height: 45
+                icon.height: 32
+                icon.width: 32
+                icon.source: "qrc:/icon/zanting.png"
                 visible: true
                 onPressed: {
                     myMediaPlayer.pauseMusic()
@@ -112,12 +110,17 @@ Item {
 
 
             RoundButton{
-                text:"xiayishou"
-                width: 45
-                height: 45
+                icon.height: 32
+                icon.width: 32
+                icon.source: "qrc:/icon/xiayishou.png"
                 onPressed: {
-                   recent.recentListview.incrementCurrentIndex();
-                   recent.startplay()
+                    if(myMediaPlayer.currentNextflag===0){
+                    songsearch.songListView.incrementCurrentIndex()
+                    songsearch.startplay()
+                    }else if(myMediaPlayer.currentNextflag===1){
+                        recent.recentListview.incrementCurrentIndex();
+                        recent.startplay();
+                    }
                 }
             }
 
@@ -136,26 +139,26 @@ Item {
                 value: 0
                 width: 200
 
-                onValueChanged: {
 
-
-
-
-                   // myMediaPlayer.position=value
-                        }
-
-                Timer {
-                    id: timer
-                    interval: 500
-                    running: true
-                    repeat: true
-                    onTriggered: {
-                        // 正在拖拽的时候不更新位置
-//                        if (!parent.pressed) {
-//                            //parent.value = myMediaPlayer.position
-//                        }
-                    }
+                onPressedChanged: {
+                   myMediaPlayer.position=value
+                   myMediaPlayer.play();
                 }
+
+
+//                Timer {
+//                    id: timer
+//                    interval: 500
+//                    running: true
+//                    repeat: true
+//                    onTriggered: {
+//                        // 正在拖拽的时候不更新位置
+////                        if (!parent.pressed) {
+////                            //parent.value = myMediaPlayer.position
+////                        }
+//                    }
+//                }
+
             }
 
 
@@ -167,12 +170,28 @@ Item {
 
 
             RoundButton{
-                text:"音量"
-                width: 45
-                height: 45
+                id:noSound
+                visible: true
+                icon.height: 30
+                icon.width: 30
+                icon.source: "qrc:/icon/shengyin_shiti.png"
                 onPressed: {
-                   // stopMusic()
-                    //console.log("xiaoyishou")
+                    myMediaPlayer.volume=0
+                    noSound.visible=false
+                    haveSound.visible=true
+                }
+            }
+
+            RoundButton{
+                id:haveSound
+                visible: false
+                icon.height: 30
+                icon.width: 30
+                icon.source: "qrc:/icon/jingyin.png"
+                onPressed: {
+                    myMediaPlayer.volume=sliderV.value
+                    noSound.visible=true
+                    haveSound.visible=false
                 }
             }
 
@@ -182,73 +201,90 @@ Item {
                 from:0
                 to:1
                 value: 0.5
-                 width: 50
+                 width: 100
 
                         onValueChanged: {
                             myMediaPlayer.volume=value
                         }
-                        //width: 600
+
                         height: 20
                         stepSize: 0.01
             }
 
 
             RoundButton{
-                text:"循环播放方式"
-                width: 45
-                height: 45
+                id:order
+                icon.source: "qrc:/icon/shunxubofang.png"
+                icon.width: 28
+                icon.height: 28
+                visible: true
                 onPressed: {
-                   // stopMusic()
-                    //console.log("xiaoyishou")
+                    order.visible=false
+                    circulate.visible=true
+                    random.visible=false
                 }
             }
 
             RoundButton{
-                text:"歌词"
-                width: 45
-                height: 45
+                id:circulate
+                icon.source: "qrc:/icon/danquxunhuan.png"
+                icon.width: 28
+                icon.height: 28
+                visible: false
                 onPressed: {
-                   // stopMusic()
-                    console.log("xiaoyishou")
+                    order.visible=false
+                    circulate.visible=false
+                    random.visible=true
+                }
+            }
+
+            RoundButton{
+                id:random
+                icon.source: "qrc:/icon/suijibofang.png"
+                visible: false
+                icon.width: 28
+                icon.height: 28
+
+                onPressed: {
+                    order.visible=true
+                    circulate.visible=false
+                    random.visible=false
+                }
+            }
+
+            RoundButton{
+                text:"词"
+                width: 40
+                height: 40
+                onPressed: {
+                    if(!gc.visible){
+                        gc.visible=true
+                    }else{
+                        gc.visible=false
+                    }
                 }
             }
 
         }
      }
  }
+    Window{
+            id: gc
+            visible: false
+            width: 500
+            height: 100
+            title: qsTr("歌词")
 
-
-
-    //打开文件对话框
-    FileDialog {
-        id: fileOpen
-        title: "Select some songs files"
-        fileMode: FileDialog.OpenFiles
-        nameFilters: ["音乐文件 (*.mp3 *.wma *.flac *.ape)", "所有文件 (*)"]
-        onAccepted: {
-            setFile(fileOpen.currentFiles)
-
-
-
+            Text{
+                id: mt
+                anchors.centerIn: parent
+                visible: true
+                color: "blue"
+                //text:"曾经年少爱追梦，一心只想往前飞。"
+                text:musiclrc.lrclistModel.get(musiclrc.lrcListView.currentIndex).lrc
+                font.pixelSize: 28
+             }
         }
-    }
-
-    //文件的选择函数
-    function setFile(){
-
-        recent.clearListModel();
-        for(var i=0;i<arguments[0].length;i++){
-            //filesModel.append({"picSrc":String (arguments[0][i])})
-            //recent.playlistModel.append({"picSrc":String (arguments[0][i])})
-            myMediaPlayer.source=String(arguments[0][i])
-            myMediaPlayer.play()
-            console.log(myMediaPlayer.source)
-            //console.log(myMediaPlayer.metaData.stringValue(MediaMetaData.Title))
-        }
-    }
-
-
-
 
 
 }

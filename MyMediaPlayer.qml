@@ -10,7 +10,7 @@ MediaPlayer{
     property alias volume:audioUotput.volume
     property alias position:myMediaPlayer.position
     property alias duration:myMediaPlayer.duration
-
+    property int currentNextflag: -1
     audioOutput:
     AudioOutput {
         id:audioUotput
@@ -21,6 +21,7 @@ MediaPlayer{
     function playMusic()
     {
         myMediaPlayer.play();
+        recent.timerStart()
     }
 
 
@@ -28,26 +29,19 @@ MediaPlayer{
     {
 
         myMediaPlayer.pause()
+        recent.timerStop()
     }
 
     function stopMusic()
     {
 
         myMediaPlayer.stop()
+
     }
-
-
-
-
-    onSourceChanged: {
-        myMediaPlayer.sendsongChange();
-    }
-
 
     onPositionChanged: {
         buttonItem.value=myMediaPlayer.position
     }
-
 
  }
 

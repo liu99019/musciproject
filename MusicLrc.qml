@@ -13,18 +13,8 @@ Item {
     property alias mylrc: mylrc
     property alias lrclistModel: lrclistModel
     property alias timer: timer
+    property alias lrcListView: lrcListView
 
-    FileDialog {
-        id: fileOpen
-        title: "Select some picture files"
-        currentFolder: StandardPaths.writableLocation(StandardPaths.DocumentsLocation)
-        fileMode: FileDialog.OpenFiles
-        nameFilters: [ "Song files (*.mp3)" ]
-        onAccepted: {
-            //console.log(fileOpen.selectedFiles)
-            myMediaPlayer.source=fileOpen.selectedFiles[0]
-        }
-    }
 
     Image {
         id:backimg
@@ -134,9 +124,10 @@ lrcListView.currentIndex=mylrc.pisotionChange(Math.floor(myMediaPlayer.position 
     }
 }
 
-
 function beging()
 {
+
+    if(recent.flag==1)
     mylrc.beginstr(songsearch.sc.lyrics);
 
 

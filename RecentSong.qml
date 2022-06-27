@@ -1,6 +1,7 @@
 import QtQuick
 import QtMultimedia
 import QtQuick.Controls
+import QtQuick.Dialogs
 Item {
 
     //存取本地播放过的歌曲信息
@@ -17,7 +18,9 @@ Item {
     //判断歌曲添加
     property var addsongflag
 
+    property alias fileOpen: fileOpen
     property alias recentListview: recentListview
+    property alias playlistModel: playlistModel
     ListView{
 
        id:recentListview
@@ -48,10 +51,38 @@ Item {
                     recentListview.currentIndex=index
                     startplay()
                     stackLayout.currentIndex=0
+                    myMediaPlayer.currentNextflag=1
                 }
             }
         }
     }
+
+    //打开文件对话框
+    FileDialog {
+        id: fileOpen
+        title: "Select some songs files"
+        fileMode: FileDialog.OpenFiles
+        nameFilters: ["音乐文件 (*.mp3 *.wma *.flac *.ape)", "所有文件 (*)"]
+        onAccepted: {
+
+            setFile(fileOpen.currentFiles)
+            musiclrc.mylrc.bendi(String(fileOpen.currentFiles[0]))
+            musiclrc.beging();
+
+        }
+    }
+
+    //文件的选择函数
+    function setFile(){
+
+        flag=0
+
+        for(var i=0;i<arguments[0].length;i++){
+            addsongflag=String (arguments[0][i])
+            myMediaPlayer.source=String(arguments[0][i])
+        }
+    }
+
 
 
     onAddsongflagChanged: {
@@ -75,13 +106,31 @@ Item {
 
             songname_vec.push(songsearch.sc.songName[songsearch.songListView.currentIndex])
             singername_vec.push(songsearch.sc.singerName[songsearch.songListView.currentIndex])
-            recentListview.currentIndex=songurls_vec.length
+            recentListview.currentIndex=songurls_vec.length-1
             }else{
                 issave=true;
             }
         }
         else if(flag===0){
+            while(i<songurls_vec.length){
+                if(songurls_vec[i]===addsongflag){
+                    issave=false;
+                    break;
+                }
+                else{
+                    i++
+                }
+            }
+            if(issave){
+                songurls_vec.push(addsongflag)
+                playlistModel.append({"songname":addsongflag.toString().replace(/^.*[\\\/]/, '')})
+                songimgs_vec.push("file:///run/media/root/study/qt/musicProject/project/lingTmusic/icon/yinle1.png")
+                songlrcs_vec.push("null")
 
+                songname_vec.push(addsongflag.toString().replace(/^.*[\\\/]/, ''))
+                singername_vec.push("null")
+                recentListview.currentIndex=songurls_vec.length-1
+            }
         }else{
             console.log("error")
         }
@@ -89,7 +138,6 @@ Item {
 
 
    function startplay(){
-
 
        musiclrc.mylrc.beginstr(songlrcs_vec[recentListview.currentIndex]);
        musiclrc.lrclistModel.clear();
@@ -99,7 +147,7 @@ Item {
        }
 
        myMediaPlayer.source=songurls_vec[recentListview.currentIndex];
-       buttonItem.songImg.source=songimgs_vec[recentListview.currentIndex];
+        buttonItem.songImg.source=songimgs_vec[recentListview.currentIndex];
 
        buttonItem.songName.text=songname_vec[recentListview.currentIndex];
        buttonItem.songerName.text=singername_vec[recentListview.currentIndex];
@@ -109,7 +157,51 @@ Item {
 
        myMediaPlayer.playMusic()
 
-   }
+ }
+
+   Timer{
+          id:timer
+          interval: 500
+          repeat: true
+          onTriggered: {
+              //console.log(buttonItem.order.visible)
+              if(buttonItem.order.visible){
+                  console.log("position:"+myMediaPlayer.position)
+                  console.log("duration:"+myMediaPlayer.duration)
+                  if(myMediaPlayer.position>myMediaPlayer.duration)
+                  {
+                      recent.recentListview.incrementCurrentIndex();
+                      recent.startplay()
+
+                  }
+
+              }
+
+
+//                }else if(buttonItem.circulate.visible){
+//                  if(myMediaPlayer.position>myMediaPlayer.duration)
+//                  {
+//                       recent.startplay()
+//                  }
+//              }
+//              else if(buttonItem.random.visible){
+//                  if(myMediaPlayer.position>myMediaPlayer.duration)
+//                  {
+
+//                  }
+//              }
+
+          }
+      }
+
+
+      function  timerStart()
+      {
+          timer.start();
+      }
+      function timerStop()
+      {
+          timer.stop();
+      }
 
 }
-

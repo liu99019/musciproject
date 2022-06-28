@@ -20,7 +20,7 @@ ApplicationWindow {
 
     header: ToolBar {
 
-        // ...
+
         contentHeight: toolButton.implicitHeight
 
         ToolButton {
@@ -52,7 +52,6 @@ ApplicationWindow {
 
 
     Drawer {
-        // ...
         id: drawer
         width: window.width * 0.2
         height: window.height*0.9

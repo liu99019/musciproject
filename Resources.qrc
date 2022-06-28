@@ -37,5 +37,9 @@
         <file>icon/suijibofang.png</file>
         <file>icon/yunhang.png</file>
         <file>icon/shunxubofang.png</file>
+        <file>icon/pause.png</file>
+        <file>icon/play.png</file>
+        <file>icon/sousuoxiao.png</file>
+        <file>icon/stop.png</file>
     </qresource>
 </RCC>

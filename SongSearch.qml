@@ -33,7 +33,7 @@ Item{
          RoundButton{
              icon.width: 28
              icon.height: 28
-            icon.source: "qrc:/icon/sousuo.png"
+            icon.source: "qrc:/icon/sousuoxiao.png"
             onClicked: {
                 if(keyWord.text.length===0) {
                     keyWord.text=keyWord.placeholderText

@@ -21,7 +21,6 @@ Item {
     property alias fileOpen: fileOpen
     property alias recentListview: recentListview
     property alias playlistModel: playlistModel
-
     ListView{
 
        id:recentListview
@@ -43,27 +42,19 @@ Item {
     Component{
         id:playlistDelegate
 
+        Text {
+            text: songname
+            color:ListView.isCurrentItem ? "gray" : "black"
 
-
-            Text {
-                text: index+1+".      "+songname
-                color:ListView.isCurrentItem ? "green" : "black"
-
-                font.pixelSize: 23
-                TapHandler{
-                    onDoubleTapped: {
-                        recentListview.currentIndex=index
-                        startplay()
-                        stackLayout.currentIndex=0
-                        myMediaPlayer.currentNextflag=1
-                    }
+            TapHandler{
+                onDoubleTapped: {
+                    recentListview.currentIndex=index
+                    startplay()
+                    stackLayout.currentIndex=0
+                    myMediaPlayer.currentNextflag=1
                 }
             }
-
-
-
-
-
+        }
     }
 
     //打开文件对话框
@@ -175,8 +166,8 @@ Item {
           onTriggered: {
               //console.log(buttonItem.order.visible)
               if(buttonItem.order.visible){
-                  //console.log("position:"+myMediaPlayer.position)
-                  //console.log("duration:"+myMediaPlayer.duration)
+                  console.log("position:"+myMediaPlayer.position)
+                  console.log("duration:"+myMediaPlayer.duration)
                   if(myMediaPlayer.position>myMediaPlayer.duration)
                   {
                       recent.recentListview.incrementCurrentIndex();

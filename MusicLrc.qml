@@ -1,3 +1,4 @@
+/*此界面为歌词界面*/
 import QtQuick
 import QtCore
 import QtQuick.Window

@@ -1,8 +1,7 @@
+/*此界面为按钮组件*/
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Dialogs
-
-
 Item {
 
     property alias text1:text1
@@ -139,25 +138,28 @@ Item {
                 value: 0
                 width: 200
 
-
                 onPressedChanged: {
-                   myMediaPlayer.position=value
-                   myMediaPlayer.play();
+                    if (!pressed) {
+                       //myMediaPlayer.seek(value)
+                        myMediaPlayer.position=value
+                    }
                 }
 
 
-//                Timer {
-//                    id: timer
-//                    interval: 500
-//                    running: true
-//                    repeat: true
-//                    onTriggered: {
-//                        // 正在拖拽的时候不更新位置
-////                        if (!parent.pressed) {
-////                            //parent.value = myMediaPlayer.position
-////                        }
-//                    }
-//                }
+                Timer {
+                    id: timer
+                    interval: 500
+                    running: true
+                    repeat: true
+                    onTriggered: {
+                        // 正在拖拽的时候不更新位置
+                        if (!parent.pressed) {
+                            parent.value = myMediaPlayer.position
+                        }
+                    }
+                }
+
+
 
             }
 

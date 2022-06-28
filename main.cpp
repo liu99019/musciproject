@@ -6,7 +6,7 @@
 #include <QRect>
 #include "mylrc.h"
 #include"searchsong.h"
-
+#include"songdecode.h"
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
@@ -18,8 +18,8 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
 
     qmlRegisterType<MyLrc>("MyLrc",1,0,"MyLrc");
-    qmlRegisterType<SearchSong>("SearchSong",1,0,"SearchSong");
-
+    qmlRegisterType<SearchSong>("SearchSong",1,0,"SearchSong");   
+    qmlRegisterType<Songdecode>("Songdecode",1,0,"Songdecode");
     const QUrl url(u"qrc:/lingTmusic/main.qml"_qs);
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {

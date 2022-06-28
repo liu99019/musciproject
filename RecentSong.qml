@@ -1,3 +1,4 @@
+import Songdecode 1.0
 import QtQuick
 import QtMultimedia
 import QtQuick.Controls
@@ -18,9 +19,14 @@ Item {
     //判断歌曲添加
     property var addsongflag
 
+    property alias songdecode: songdecode
     property alias fileOpen: fileOpen
     property alias recentListview: recentListview
     property alias playlistModel: playlistModel
+
+    Songdecode{
+        id:songdecode
+    }
     ListView{
 
        id:recentListview
@@ -68,7 +74,6 @@ Item {
             setFile(fileOpen.currentFiles)
             musiclrc.mylrc.bendi(String(fileOpen.currentFiles[0]))
             musiclrc.beging();
-
         }
     }
 
@@ -159,49 +164,5 @@ Item {
 
  }
 
-   Timer{
-          id:timer
-          interval: 500
-          repeat: true
-          onTriggered: {
-              //console.log(buttonItem.order.visible)
-              if(buttonItem.order.visible){
-                  console.log("position:"+myMediaPlayer.position)
-                  console.log("duration:"+myMediaPlayer.duration)
-                  if(myMediaPlayer.position>myMediaPlayer.duration)
-                  {
-                      recent.recentListview.incrementCurrentIndex();
-                      recent.startplay()
-
-                  }
-
-              }
-
-
-//                }else if(buttonItem.circulate.visible){
-//                  if(myMediaPlayer.position>myMediaPlayer.duration)
-//                  {
-//                       recent.startplay()
-//                  }
-//              }
-//              else if(buttonItem.random.visible){
-//                  if(myMediaPlayer.position>myMediaPlayer.duration)
-//                  {
-
-//                  }
-//              }
-
-          }
-      }
-
-
-      function  timerStart()
-      {
-          timer.start();
-      }
-      function timerStop()
-      {
-          timer.stop();
-      }
 
 }

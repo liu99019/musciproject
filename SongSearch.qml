@@ -1,3 +1,4 @@
+/*此页面为歌曲搜索界面*/
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts

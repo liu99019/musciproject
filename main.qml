@@ -15,12 +15,13 @@ ApplicationWindow {
     //flags: Qt.FramelessWindowHint| Qt.Window
 
     Universal.theme: Universal.Light
-    Universal.accent: Universal.Orange
+    //Universal.accent: Universal.Orange
+    Universal.accent:Universal.Cyan
 
 
     header: ToolBar {
 
-        // ...
+
         contentHeight: toolButton.implicitHeight
 
         ToolButton {
@@ -36,23 +37,11 @@ ApplicationWindow {
             text: "lingT"
             anchors.centerIn: parent
         }
-        Button {
-            id: exit
-            height: parent.height
-            width: 60
-            anchors.top: parent.top
-            anchors.right: parent.right
-            icon.color: "white"
 
-            onClicked: {
-                window.close()
-            }
-        }
     }
 
 
     Drawer {
-        // ...
         id: drawer
         width: window.width * 0.2
         height: window.height*0.9
@@ -86,6 +75,16 @@ ApplicationWindow {
                 }
             }
 
+            ItemDelegate {
+                text: qsTr("title")
+                width: parent.width
+                onClicked: {
+                    stackLaout.currentIndex=3
+                    drawer.close()
+                }
+            }
+
+
         }
 
     }
@@ -93,7 +92,7 @@ ApplicationWindow {
     StackLayout {
         id: stackLayout
         width: window.width
-        height: window.height*0.8
+        height: window.height*0.9
         currentIndex: 0
 
         MusicLrc{
@@ -106,6 +105,12 @@ ApplicationWindow {
 
         RecentSong{
             id:recent
+        }
+
+
+        MusicTitle{
+            //visible: false
+            id:musicTitle
         }
     }
     Item {
@@ -120,16 +125,8 @@ ApplicationWindow {
 
     MyMediaPlayer{
         id:myMediaPlayer
-        signal sendsongChange();
-        Component.onCompleted: {
-           //myMediaPlayer.sendsongChange.connect(recent.onSendSongsignal);
-        }
     }
 
 
 
-
-    MiniLrcDialog{
-        id:miniLre
-    }
 }

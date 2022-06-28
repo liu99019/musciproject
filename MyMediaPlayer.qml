@@ -4,12 +4,20 @@ import QtQuick.Controls
 import QtMultimedia
 import QtQuick.Dialogs
 import QtQuick.Layouts
-MediaPlayer{
 
+MediaPlayer{
     id:myMediaPlayer
     property alias volume:audioUotput.volume
     property alias position:myMediaPlayer.position
     property alias duration:myMediaPlayer.duration
+    property int currentNextflag: -1
+
+    property string title:myMediaPlayer.metaData.stringValue(MediaMetaData.Title)
+
+    property string author:myMediaPlayer.metaData.stringValue(MediaMetaData.AlbumTitle)
+
+
+
 
     audioOutput:
     AudioOutput {
@@ -21,7 +29,10 @@ MediaPlayer{
     function playMusic()
     {
         myMediaPlayer.play();
-        recent.timerStart();
+        recent.timerStart()
+
+        musicTitle.timerStart()
+
     }
 
 
@@ -29,21 +40,15 @@ MediaPlayer{
     {
 
         myMediaPlayer.pause()
+        recent.timerStop()
     }
 
     function stopMusic()
     {
 
         myMediaPlayer.stop()
+
     }
-
-
-
-
-    onSourceChanged: {
-        myMediaPlayer.sendsongChange();
-    }
-
 
     onPositionChanged: {
         buttonItem.value=myMediaPlayer.position

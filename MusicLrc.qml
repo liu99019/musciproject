@@ -13,21 +13,8 @@ Item {
     property alias mylrc: mylrc
     property alias lrclistModel: lrclistModel
     property alias timer: timer
-    property alias lrcListView:lrcListView
+    property alias lrcListView: lrcListView
 
-
-
-//    FileDialog {
-//        id: fileOpen
-//        title: "Select some picture files"
-//        currentFolder: StandardPaths.writableLocation(StandardPaths.DocumentsLocation)
-//        fileMode: FileDialog.OpenFiles
-//        nameFilters: [ "Song files (*.mp3)" ]
-//        onAccepted: {
-//            //console.log(fileOpen.selectedFiles)
-//            myMediaPlayer.source=fileOpen.selectedFiles[0]
-//        }
-//    }
 
     Image {
         id:backimg
@@ -39,6 +26,7 @@ Item {
     ListView {
 
         id:lrcListView
+        //anchors.top: aa.bottom
         anchors.horizontalCenter: parent.horizontalCenter
         //width: 180; height: 400
         width: parent.width
@@ -57,7 +45,6 @@ Item {
         model: lrclistModel
 
         delegate: Text {
-            id:textGc
             //focus: true
             width: lrcListView.width
             color:ListView.isCurrentItem ? "green" : "black"
@@ -83,9 +70,43 @@ Item {
 
     MyLrc{
         id:mylrc
-        fileUrl: "/root/tmp/海阔天空.lrc"
+        fileUrl: "/root/test.lrc"
     }
 
+//    Button{
+//        id:bb
+//        onClicked: {
+//            fileOpen.open()
+//        }
+//    }
+
+
+//    Button{
+
+//        id:aa
+//        Text{
+//            text:mylrc.fileUrl
+//        }
+//        onClicked: {
+
+//            mylrc.beginstr(songsearch.sc.lyrics);
+////            console.log(mylrc.fileUrl)
+////            console.log(mylrc.fileTi)
+////            console.log(mylrc.fileAr)
+////            console.log(mylrc.fileAl)
+////            console.log(mylrc.fileBy)
+
+//            lrclistModel.clear();
+//            for(var i=0;i<mylrc.str.length;i++){
+//                lrclistModel.append({"lrc":mylrc.str[i]})
+//            }
+//            timer.start();
+//            myMediaPlayer.palyMusic()
+
+
+//            //console.log(myMediaPlayer.source)
+//        }
+//    }
 
 
 Timer{
@@ -103,10 +124,8 @@ lrcListView.currentIndex=mylrc.pisotionChange(Math.floor(myMediaPlayer.position 
     }
 }
 
-
 function beging()
 {
-
 
     if(recent.flag==1)
     mylrc.beginstr(songsearch.sc.lyrics);

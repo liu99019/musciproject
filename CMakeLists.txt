@@ -2,12 +2,20 @@ cmake_minimum_required(VERSION 3.23)
 
 project(lingTmusic VERSION 0.1 LANGUAGES CXX)
 
+file(GLOB_RECURSE QRC_SOURCE_FILES ${CAMKE_CURRENT_SOURCE_DIR}/*.qrc)
+
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(QRC_SOURCE_FILES Resources.qrc)
 
 find_package(Qt6 6.2 COMPONENTS Quick REQUIRED)
 find_package(Qt6 REQUIRED COMPONENTS Multimedia)
 
+
+
+qt6_add_resources(QRC_FILES ${QRC_SOURCE_FILES})
+
+SOURCE_GROUP("Resource Files" FILES ${QRC_SOURCE_FILES})
 qt_add_executable(applingTmusic
     main.cpp
     common.h
@@ -15,14 +23,14 @@ qt_add_executable(applingTmusic
     mylrc.h
     searchsong.cpp
     searchsong.h
-    icon.qrc
+    ${QRC_FILES}
 )
 
 qt_add_qml_module(applingTmusic
     URI lingTmusic
     VERSION 1.0
     QML_FILES main.qml MusicLrc.qml MyMediaPlayer.qml
-    SongSearch.qml RecentSong.qml ButtonItem.qml  MiniLrcDialog.qml
+    SongSearch.qml RecentSong.qml ButtonItem.qml  MusicTitle.qml
 )
 
 

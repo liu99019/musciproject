@@ -86,6 +86,7 @@ public:
 
 
 
+
     const QString &fileTi() const;
     void setFileTi(const QString &newFileTi);
 

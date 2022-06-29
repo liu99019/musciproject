@@ -537,22 +537,7 @@ Item {
 
 
 
-                Timer {
-                    id: timer
-                    interval: 500
-                    running: true
-                    repeat: true
-                    onTriggered: {
-                        // 正在拖拽的时候不更新位置
-                        if (!parent.pressed) {
-                            parent.value = myMediaPlayer.position
-                        }
 
-//                        if(myMediaPlayer.BufferedMedia){
-//                            myMediaPlayer.playMusic()
-//                        }
-                    }
-                }
 
 
                 // 进度条主体

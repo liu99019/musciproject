@@ -44,126 +44,106 @@ Item {
   }
  }
    Rectangle{
-       border.color: "black"
-       border.width: 1
-       id:rec2
-       anchors.right:parent.right
-       width: parent.width*0.4
-       height: parent.height
-       Column{
-           Item{
-               //.color: "black"
-               //border.width: 1
-               width: rec2.width
-               height: 50
-               Text {
-                   anchors.centerIn: parent
-                   text: qsTr("音频信息")
-                   font.pixelSize:20
-               }
-           }
+    id:rec2
+    anchors.left: rec1.right
+    width: parent.width*0.4
+    height: parent.height
+    Column{
+    Text {
+        text: qsTr("音频信息")
+        font.pixelSize:18
+        width: rec2.width
+        height: 50
+    }
+    Column{
+        Row{
+            Text {
+                id:title
+                text: qsTr("标   题:")
+            }
+            TextField{
+                id: titleInput
+                Layout.fillWidth: true
+                focus: true
+            }
+        }
+        Row{
+            Text {
+                id:artist
+                text: qsTr("艺术家:")
+            }
+            TextField{
+                id: artistInput
+                Layout.fillWidth: true
 
-       Column{
+            }
+        }
+        Row{
+            Text {
+                id:album
+                text: qsTr("唱片集:")
+            }
+            TextField{
+                id: albumInput
+                Layout.fillWidth: true
+            }
+        }
+        RowLayout{
+            Layout.fillWidth: true
+            RowLayout{
+                Layout.fillWidth: true
+                RowLayout{
+                    Layout.fillWidth: true
+                    Text {
+                        id:track
+                        text: qsTr("音轨号:")
+                    }
+                    TextField{
+                        id: trackInput
+                        Layout.fillWidth: true
+                        validator: RegularExpressionValidator{regularExpression: /[0-9]+/}
+                    }
+                }
+                RowLayout{
+                    Layout.fillWidth: true
+                    Text {
+                        id:year
+                        text: qsTr("日 期:")
+                    }
+                    TextField{
+                        id: yearInput
+                        Layout.fillWidth: true
+                        validator: RegularExpressionValidator{regularExpression: /[0-9]+/}
+                    }
+                }
+            }
+        }
 
-           Item{
-               width: parent.width
-               height: 50
-               Text {
-                   id:title
-                   text: qsTr("标   题: ")
-               }
-               TextField{
-                   id: titleInput
-                   anchors.left: title.right
-                   Layout.fillWidth: true
-                   focus: true
-               }
-           }
+        Row{
+            Text {
+                id: gener
+                text: qsTr("流 派：")
+            }
+            TextField{
+                id:generInput
+                Layout.fillWidth: true
 
-
-
-
-
-
-
-           Row{
-               Text {
-                   id:artist
-                   text: qsTr("艺术家:")
-               }
-               TextField{
-                   id: artistInput
-                   Layout.fillWidth: true
-
-               }
-           }
-           Row{
-               Text {
-                   id:album
-                   text: qsTr("唱片集:")
-               }
-               TextField{
-                   id: albumInput
-                   Layout.fillWidth: true
-               }
-           }
-           RowLayout{
-               Layout.fillWidth: true
-               RowLayout{
-                   Layout.fillWidth: true
-                   RowLayout{
-                       Layout.fillWidth: true
-                       Text {
-                           id:track
-                           text: qsTr("音轨号:")
-                       }
-                       TextField{
-                           id: trackInput
-                           Layout.fillWidth: true
-                           validator: RegularExpressionValidator{regularExpression: /[0-9]+/}
-                       }
-                   }
-                   RowLayout{
-                       Layout.fillWidth: true
-                       Text {
-                           id:year
-                           text: qsTr("日 期:")
-                       }
-                       TextField{
-                           id: yearInput
-                           Layout.fillWidth: true
-                           validator: RegularExpressionValidator{regularExpression: /[0-9]+/}
-                       }
-                   }
-               }
-           }
-
-           Row{
-               Text {
-                   id: gener
-                   text: qsTr("流 派：")
-               }
-               TextField{
-                   id:generInput
-                   Layout.fillWidth: true
-
-               }
-           }
-           Row{
-               Text {
-                   id: annotation
-                   text: qsTr("注 释：")
-               }
-               TextField{
-                   id: annotationInput
-                   Layout.fillWidth: true
-               }
-           }
-
-       }
+            }
+        }
+        Row{
+            Text {
+                id: annotation
+                text: qsTr("注 释：")
+            }
+            TextField{
+                id: annotationInput
+                Layout.fillWidth: true
+            }
+        }
 
     }
-      }
 
+ }
+   }
   }
 

@@ -64,6 +64,9 @@ MediaPlayer{
         }
     }
 
+    onPositionChanged: {
+            buttonItem.value=myMediaPlayer.position
+        }
 
  }
 

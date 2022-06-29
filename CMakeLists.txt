@@ -11,6 +11,11 @@ set(QRC_SOURCE_FILES Resources.qrc)
 find_package(Qt6 6.2 COMPONENTS Quick REQUIRED)
 find_package(Qt6 REQUIRED COMPONENTS Multimedia)
 
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
+
+find_package(Qt6 REQUIRED COMPONENTS Multimedia)
+find_package(Qt6 REQUIRED COMPONENTS Charts)
+
 INCLUDE_DIRECTORIES("/usr/include/taglib")
 
 qt6_add_resources(QRC_FILES ${QRC_SOURCE_FILES})
@@ -25,13 +30,14 @@ qt_add_executable(applingTmusic
     searchsong.h
     ${QRC_FILES}
     songdecode.h songdecode.cpp
+    datasource.h  datasource.cpp
 )
 
 qt_add_qml_module(applingTmusic
     URI lingTmusic
     VERSION 1.0
     QML_FILES main.qml MusicLrc.qml MyMediaPlayer.qml
-    SongSearch.qml RecentSong.qml ButtonItem.qml
+    SongSearch.qml RecentSong.qml ButtonItem.qml Songinformation.qml  AudioSample.qml
 )
 
 
@@ -48,4 +54,4 @@ target_compile_definitions(applingTmusic
 target_link_libraries(applingTmusic
     PRIVATE Qt6::Quick tag)
 target_link_libraries(applingTmusic PRIVATE
-       Qt6::Multimedia)
+       Qt6::Multimedia   Qt6::Widgets   Qt6::Multimedia   Qt6::Charts)

@@ -11,6 +11,7 @@ Item {
     property var songlrcs_vec:[];
     property var songname_vec:[];
     property var singername_vec:[];
+    property var albumname_vec:[];
 
     //判断是打开的是本地音乐还是网络音乐 0是本地 1是网络
     property int flag: -1
@@ -49,8 +50,10 @@ Item {
         id:playlistDelegate
 
         Text {
-            text: songname
-            color:ListView.isCurrentItem ? "gray" : "black"
+            text: index+1+".      "+songname
+            color:ListView.isCurrentItem ? "green" : "black"
+
+            font.pixelSize: 23
 
             TapHandler{
                 onDoubleTapped: {
@@ -70,10 +73,7 @@ Item {
         fileMode: FileDialog.OpenFiles
         nameFilters: ["音乐文件 (*.mp3 *.wma *.flac *.ape)", "所有文件 (*)"]
         onAccepted: {
-
             setFile(fileOpen.currentFiles)
-            musiclrc.mylrc.bendi(String(fileOpen.currentFiles[0]))
-            musiclrc.beging();
         }
     }
 
@@ -83,8 +83,9 @@ Item {
         flag=0
 
         for(var i=0;i<arguments[0].length;i++){
+            songdecode.getTag(arguments[0][i])
             addsongflag=String (arguments[0][i])
-            myMediaPlayer.source=String(arguments[0][i])
+            //myMediaPlayer.source=String(arguments[0][i])
         }
     }
 
@@ -96,8 +97,9 @@ Item {
             var i=0
             while(i<songurls_vec.length){
                 if(songurls_vec[i]===songsearch.sc.url){
+                    recentListview.currentIndex=i
                     issave=false;
-                    break;
+                    break;                    
                 }
                 else{
                     i++
@@ -108,7 +110,7 @@ Item {
             songurls_vec.push(songsearch.sc.url)
             songimgs_vec.push(songsearch.sc.image)
             songlrcs_vec.push(songsearch.sc.lyrics)
-
+            albumname_vec.push(songsearch.sc.albumName[songsearch.songListView.currentIndex])
             songname_vec.push(songsearch.sc.songName[songsearch.songListView.currentIndex])
             singername_vec.push(songsearch.sc.singerName[songsearch.songListView.currentIndex])
             recentListview.currentIndex=songurls_vec.length-1
@@ -128,41 +130,58 @@ Item {
             }
             if(issave){
                 songurls_vec.push(addsongflag)
-                playlistModel.append({"songname":addsongflag.toString().replace(/^.*[\\\/]/, '')})
-                songimgs_vec.push("file:///run/media/root/study/qt/musicProject/project/lingTmusic/icon/yinle1.png")
-                songlrcs_vec.push("null")
-
-                songname_vec.push(addsongflag.toString().replace(/^.*[\\\/]/, ''))
-                singername_vec.push("null")
+                playlistModel.append({"songname":songdecode.songTag["标题"]})
+                songimgs_vec.push("file:///tmp/cover.jpg")
+                songname_vec.push(songdecode.songTag["标题"])
+                singername_vec.push(songdecode.songTag["歌手"])
+                albumname_vec.push(songdecode.songTag["唱片集"])
                 recentListview.currentIndex=songurls_vec.length-1
             }
         }else{
             console.log("error")
         }
+        setsongInfomation();
     }
 
 
    function startplay(){
 
+       if(flag==1){
        musiclrc.mylrc.beginstr(songlrcs_vec[recentListview.currentIndex]);
        musiclrc.lrclistModel.clear();
-
        for(var i=0;i<musiclrc.mylrc.str.length;i++){
            musiclrc.lrclistModel.append({"lrc":musiclrc.mylrc.str[i]})
        }
-
+       }else if(flag==0){
+           musiclrc.mylrc.bendi(String(songurls_vec[recentListview.currentIndex]))
+           musiclrc.beging();
+       }else{
+           console.log("error")
+       }
        myMediaPlayer.source=songurls_vec[recentListview.currentIndex];
-        buttonItem.songImg.source=songimgs_vec[recentListview.currentIndex];
+
+       buttonItem.songImg.source=songimgs_vec[recentListview.currentIndex];
 
        buttonItem.songName.text=songname_vec[recentListview.currentIndex];
+
        buttonItem.songerName.text=singername_vec[recentListview.currentIndex];
        musiclrc.backimg.source=songimgs_vec[recentListview.currentIndex];
-
        musiclrc.timer.start();
-
        myMediaPlayer.playMusic()
-
  }
 
+   function setsongInfomation(){
+
+       songinfo.cover.source=songimgs_vec[recentListview.currentIndex]
+       songinfo.titleInput.text=songname_vec[recentListview.currentIndex]
+       songinfo.artistInput.text=singername_vec[recentListview.currentIndex]
+       songinfo.albumInput.text=albumname_vec[recentListview.currentIndex]
+       if(flag==0){
+       songinfo.trackInput.text=songdecode.songTag["音轨号"]
+       songinfo.yearInput.text=songdecode.songTag["日期"]
+       songinfo.generInput.text=songdecode.songTag["流派"]
+       songinfo.annotationInput.text=songdecode.songTag["注释"]
+       }
+   }
 
 }

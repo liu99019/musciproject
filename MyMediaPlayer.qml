@@ -42,25 +42,17 @@ MediaPlayer{
     onMediaStatusChanged: {
         if(mediaStatus===MediaPlayer.EndOfMedia){
             if(buttonItem.order.visible){
-
                     console.log("播放完")
                     recent.recentListview.incrementCurrentIndex();
                     recent.startplay()
+            }else if(buttonItem.circulate){
+                myMediaPlayer.loops=-1
             }
-
-
-//                }else if(buttonItem.circulate.visible){
-//                  if(myMediaPlayer.position>myMediaPlayer.duration)
-//                  {
-//                       recent.startplay()
-//                  }
-//              }
-//              else if(buttonItem.random.visible){
-//                  if(myMediaPlayer.position>myMediaPlayer.duration)
-//                  {
-
-//                  }
-//              }
+            else{
+                var random=Math.floor(Math.random()*(recent.recentListview-1))
+                recent.recentListview.currentIndex=random
+                recent.startplay();
+            }
         }
     }
 

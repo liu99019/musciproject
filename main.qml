@@ -86,6 +86,23 @@ ApplicationWindow {
                     drawer.close()
                 }
             }
+            ItemDelegate {
+                text: qsTr("songinformation")
+                width: parent.width
+                onClicked: {
+                    stackLaout.currentIndex=3
+                    drawer.close()
+                }
+            }
+
+            ItemDelegate {
+                text: qsTr("audioSample")
+                width: parent.width
+                onClicked: {
+                    stackLaout.currentIndex=4
+                    drawer.close()
+                }
+            }
 
         }
 
@@ -107,6 +124,14 @@ ApplicationWindow {
 
         RecentSong{
             id:recent
+        }
+        Songinformation{
+            id:songinfo
+        }
+
+
+        AudioSample{
+            id:audioSample
         }
     }
     Item {

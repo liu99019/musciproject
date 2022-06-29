@@ -37,5 +37,18 @@
         <file>icon/suijibofang.png</file>
         <file>icon/yunhang.png</file>
         <file>icon/shunxubofang.png</file>
+        <file>icon/icon9.png</file>
+        <file>icon/icon8.png</file>
+        <file>icon/icon7.png</file>
+        <file>icon/icon06.png</file>
+        <file>icon/icon6.png</file>
+        <file>icon/icon5.png</file>
+        <file>icon/icon04.png</file>
+        <file>icon/icon4.png</file>
+        <file>icon/icon03.png</file>
+        <file>icon/icon02.png</file>
+        <file>icon/icon2.png</file>
+        <file>icon/icon01.png</file>
+        <file>icon/icon1.png</file>
     </qresource>
 </RCC>

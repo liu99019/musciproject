@@ -1,3 +1,4 @@
+/*此页面为歌曲搜索界面*/
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -14,6 +15,7 @@ Item{
             recent.flag=1
             recent.addsongflag=sc.singerName;
             startplay();
+            myMediaPlayer.playMusic();
         }
 
     }
@@ -30,20 +32,37 @@ Item{
             placeholderText:qsTr("薛之谦")
             Layout.fillWidth: true
         }
-         RoundButton{
-             icon.width: 28
-             icon.height: 28
-            icon.source: "qrc:/icon/sousuoxiao.png"
-            onClicked: {
-                if(keyWord.text.length===0) {
-                    keyWord.text=keyWord.placeholderText
-                    sc.searchSong(keyWord.text);
-                } else {
-                    sc.searchSong(keyWord.text);
-                }
-            }
+//         RoundButton{
+//             icon.width: 28
+//             icon.height: 28
+//            icon.source: "qrc:/icon/icon5.png"
+//            onClicked: {
+//                if(keyWord.text.length===0) {
+//                    keyWord.text=keyWord.placeholderText
+//                    sc.searchSong(keyWord.text);
+//                } else {
+//                    sc.searchSong(keyWord.text);
+//                }
+//            }
 
-        }
+//        }
+
+
+        RoundButton{
+
+           icon.width: 20
+           icon.height: 20
+           icon.source: "qrc:/icon/icon5.png"
+           onClicked: {
+               if(keyWord.text.length===0) {
+                   keyWord.text=keyWord.placeholderText
+                   sc.searchSong(keyWord.text);
+               } else {
+                   sc.searchSong(keyWord.text);
+               }
+           }
+
+       }
     }
 
     RowLayout{
@@ -170,10 +189,8 @@ Item{
     function startplay(){
         myMediaPlayer.source=sc.url;
         musiclrc.beging()
-
         stackLayout.currentIndex=0;
         musiclrc.backimg.source=sc.image;
-
         buttonItem.songImg.source=sc.image;
         buttonItem.songName.text=sc.songName[songListView.currentIndex];
         buttonItem.songerName.text=sc.singerName[songListView.currentIndex];

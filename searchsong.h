@@ -1,3 +1,7 @@
+/*
+ * 在线搜索的c++实现文件
+*/
+
 #ifndef SEARCHSONG_H
 #define SEARCHSONG_H
 #include <QObject>

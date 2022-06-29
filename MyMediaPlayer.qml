@@ -1,3 +1,4 @@
+
 import QtQuick
 import QtQuick.Window
 import QtQuick.Controls
@@ -21,7 +22,6 @@ MediaPlayer{
     function playMusic()
     {
         myMediaPlayer.play();
-        recent.timerStart()
     }
 
 
@@ -29,7 +29,6 @@ MediaPlayer{
     {
 
         myMediaPlayer.pause()
-        recent.timerStop()
     }
 
     function stopMusic()
@@ -39,9 +38,32 @@ MediaPlayer{
 
     }
 
-    onPositionChanged: {
-        buttonItem.value=myMediaPlayer.position
+
+    onMediaStatusChanged: {
+        if(mediaStatus===MediaPlayer.EndOfMedia){
+            if(buttonItem.order.visible){
+
+                    console.log("播放完")
+                    recent.recentListview.incrementCurrentIndex();
+                    recent.startplay()
+            }
+
+
+//                }else if(buttonItem.circulate.visible){
+//                  if(myMediaPlayer.position>myMediaPlayer.duration)
+//                  {
+//                       recent.startplay()
+//                  }
+//              }
+//              else if(buttonItem.random.visible){
+//                  if(myMediaPlayer.position>myMediaPlayer.duration)
+//                  {
+
+//                  }
+//              }
+        }
     }
+
 
  }
 

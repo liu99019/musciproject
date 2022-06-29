@@ -224,7 +224,6 @@ void SearchSong::parseJson_getPlayUrl(QString json){
     {
         qDebug() << json_error.errorString();
     }
-
     setlrc(m_lyrics);
 }
 

@@ -14,8 +14,10 @@ ApplicationWindow {
 
     //flags: Qt.FramelessWindowHint| Qt.Window
 
-    Universal.theme: Universal.Light
-    Universal.accent: Universal.Orange
+//    Universal.theme: Universal.dark
+//    Universal.accent: Universal.Orange
+    //Universal.theme: Universal.Teal
+         Universal.accent:  Universal.Teal
 
 
     header: ToolBar {
@@ -52,7 +54,6 @@ ApplicationWindow {
 
 
     Drawer {
-        // ...
         id: drawer
         width: window.width * 0.2
         height: window.height*0.9
@@ -85,6 +86,23 @@ ApplicationWindow {
                     drawer.close()
                 }
             }
+            ItemDelegate {
+                text: qsTr("songinformation")
+                width: parent.width
+                onClicked: {
+                    stackLaout.currentIndex=3
+                    drawer.close()
+                }
+            }
+
+            ItemDelegate {
+                text: qsTr("audioSample")
+                width: parent.width
+                onClicked: {
+                    stackLaout.currentIndex=4
+                    drawer.close()
+                }
+            }
 
         }
 
@@ -106,6 +124,14 @@ ApplicationWindow {
 
         RecentSong{
             id:recent
+        }
+        Songinformation{
+            id:songinfo
+        }
+
+
+        AudioSample{
+            id:audioSample
         }
     }
     Item {

@@ -1,8 +1,3 @@
-/*
- * 频谱的c++实现文件
-*/
-
-
 #ifndef DATASOURCE_H
 #define DATASOURCE_H
 

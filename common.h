@@ -19,11 +19,6 @@ struct Lyric
 {
     Time time;
     string text;
-
-    //bool operator<(const Lyric& lyric) const	//重载小于号运算符，用于对歌词按时间标签排序
-    //{
-        //return lyric.time > time;
-    //}
 };
 
 

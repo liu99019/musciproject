@@ -11,6 +11,7 @@ MediaPlayer{
     property alias volume:audioUotput.volume
     property alias position:myMediaPlayer.position
     property alias duration:myMediaPlayer.duration
+    //下一首的歌曲列表1是最近播放 0是网络搜索播放的列表
     property int currentNextflag: -1
     audioOutput:
     AudioOutput {
@@ -42,31 +43,31 @@ MediaPlayer{
     onMediaStatusChanged: {
         if(mediaStatus===MediaPlayer.EndOfMedia){
             if(buttonItem.order.visible){
-
-                    console.log("播放完")
+                if(currentNextflag==1){
+                    console.log("当前在最近播放列表")
                     recent.recentListview.incrementCurrentIndex();
-                    recent.startplay()
+                    recent.startplay()}
+                else{
+                    console.log("当前在搜索列表")
+                    songsearch.songListView.incrementCurrentIndex();
+                    songsearch.startplay();
+                }
+            }else if(buttonItem.circulate){                
+                myMediaPlayer.loops=-1
             }
-
-
-//                }else if(buttonItem.circulate.visible){
-//                  if(myMediaPlayer.position>myMediaPlayer.duration)
-//                  {
-//                       recent.startplay()
-//                  }
-//              }
-//              else if(buttonItem.random.visible){
-//                  if(myMediaPlayer.position>myMediaPlayer.duration)
-//                  {
-
-//                  }
-//              }
+            else{
+                if(currentNextflag==1){
+                var random1=Math.floor(Math.random()*(recent.recentListview-1))
+                recent.recentListview.currentIndex=random1
+                recent.startplay();}
+                else{
+                    var random2=Math.floor(Math.random()*(songsearch.songListView-1))
+                    songsearch.songListView.currentIndex=random2
+                    songsearch.startplay();
+                }
+            }
         }
     }
-
-    onPositionChanged: {
-            buttonItem.value=myMediaPlayer.position
-        }
 
  }
 

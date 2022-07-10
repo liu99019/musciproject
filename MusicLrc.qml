@@ -20,6 +20,7 @@ Item {
     Image {
         id:backimg
         anchors.fill: parent
+        source: "qrc:/icon/background.jpg"
         opacity: 0.5
     }
 

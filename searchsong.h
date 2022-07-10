@@ -1,19 +1,15 @@
-/*
- * 在线搜索的c++实现文件
-*/
-
 #ifndef SEARCHSONG_H
 #define SEARCHSONG_H
 #include <QObject>
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
 #include <QNetworkReply>
-#include <QMediaPlayer>
+
 class SearchSong : public QObject
 {
     Q_OBJECT
 public:
-    QMediaPlayer* player = new QMediaPlayer;
+
 
     explicit SearchSong(QObject *parent = nullptr);
     Q_INVOKABLE   void searchSong(QString str);

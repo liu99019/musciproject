@@ -1,7 +1,3 @@
-/*
- * 歌词解析的c++实现文件
-*/
-
 #ifndef MYLRC_H
 #define MYLRC_H
 #include <QObject>

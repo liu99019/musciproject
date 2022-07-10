@@ -50,5 +50,6 @@
         <file>icon/icon2.png</file>
         <file>icon/icon01.png</file>
         <file>icon/icon1.png</file>
+        <file>icon/background.jpg</file>
     </qresource>
 </RCC>

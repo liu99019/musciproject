@@ -12,12 +12,7 @@ ApplicationWindow {
     height: 620
     title: qsTr("聆听音乐播放器")
 
-    //flags: Qt.FramelessWindowHint| Qt.Window
-
-//    Universal.theme: Universal.dark
-//    Universal.accent: Universal.Orange
-    //Universal.theme: Universal.Teal
-         Universal.accent:  Universal.Teal
+   Universal.accent:  Universal.Teal
 
 
     header: ToolBar {
@@ -37,19 +32,7 @@ ApplicationWindow {
         Label {
             text: "lingT"
             anchors.centerIn: parent
-        }
-        Button {
-            id: exit
-            height: parent.height
-            width: 60
-            anchors.top: parent.top
-            anchors.right: parent.right
-            icon.color: "white"
-
-            onClicked: {
-                window.close()
-            }
-        }
+        }      
     }
 
 

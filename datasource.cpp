@@ -1,4 +1,7 @@
 #include "datasource.h"
+
+#include "datasource.h"
+
 #include <QtCharts/QXYSeries>
 #include <QtCharts/QAreaSeries>
 #include <QtQuick/QQuickItem>

@@ -107,13 +107,14 @@ Item {
             }
             if(issave){
                 playlistModel.append({"songname":songsearch.sc.songName[songsearch.songListView.currentIndex]+"-"+songsearch.sc.singerName[songsearch.songListView.currentIndex]})
+            //将网络歌曲的信息通过容器添加当中
             songurls_vec.push(songsearch.sc.url)
             songimgs_vec.push(songsearch.sc.image)
             songlrcs_vec.push(songsearch.sc.lyrics)
             albumname_vec.push(songsearch.sc.albumName[songsearch.songListView.currentIndex])
             songname_vec.push(songsearch.sc.songName[songsearch.songListView.currentIndex])
             singername_vec.push(songsearch.sc.singerName[songsearch.songListView.currentIndex])
-            recentListview.currentIndex=songurls_vec.length-1
+            recentListview.currentIndex=songurls_vec.length-1             
             }else{
                 issave=true;
             }
@@ -129,6 +130,7 @@ Item {
                 }
             }
             if(issave){
+                //将本地音乐添加最近播放列表当中
                 songurls_vec.push(addsongflag)
                 playlistModel.append({"songname":songdecode.songTag["标题"]})
                 songimgs_vec.push("file:///tmp/cover.jpg")
@@ -144,6 +146,7 @@ Item {
     }
 
 
+    //播放歌曲
    function startplay(){
 
        if(flag==1){
@@ -158,6 +161,8 @@ Item {
        }else{
            console.log("error")
        }
+
+
        myMediaPlayer.source=songurls_vec[recentListview.currentIndex];
 
        buttonItem.songImg.source=songimgs_vec[recentListview.currentIndex];
@@ -170,8 +175,8 @@ Item {
        myMediaPlayer.playMusic()
  }
 
+   //显示歌曲信息
    function setsongInfomation(){
-
        songinfo.cover.source=songimgs_vec[recentListview.currentIndex]
        songinfo.titleInput.text=songname_vec[recentListview.currentIndex]
        songinfo.artistInput.text=singername_vec[recentListview.currentIndex]

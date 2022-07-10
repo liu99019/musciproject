@@ -1,8 +1,3 @@
-/*
- * 音频解析的c++实现文件
- * （利用第三方库解析歌曲的标题，封面等等信息）
-*/
-
 #ifndef SONGDECODE_H
 #define SONGDECODE_H
 

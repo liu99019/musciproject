@@ -11,8 +11,7 @@ Item {
     property alias yearInput:yearInput
     property alias generInput:generInput
     property alias annotationInput:annotationInput
-
-
+//此界面显示歌曲信息
   Rectangle{
 
     id:rec1
@@ -43,6 +42,7 @@ Item {
     }
   }
  }
+
    Rectangle{
     id:rec2
     anchors.left: rec1.right
@@ -130,6 +130,7 @@ Item {
 
             }
         }
+
         Row{
             Text {
                 id: annotation
